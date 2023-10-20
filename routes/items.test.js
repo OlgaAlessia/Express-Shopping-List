@@ -76,8 +76,8 @@ describe("PATCH /items/:name", function () {
         expect(resp.body.item).toEqual({name: "popsicle", price: 1.39});
     });
 
-    test("Responds with 404 if id invalid", async function () {
-        const resp = await request(app).patch(`/items/40`);
+    test("Responds with 404 if can't find item", async function () {
+        const resp = await request(app).patch(`/items/cookies`);
         expect(resp.statusCode).toBe(404);
     });
 });
@@ -91,6 +91,11 @@ describe("DELETE /items/:name", function () {
         const resp = await request(app).delete(`/items/cheerios`);
         expect(resp.statusCode).toBe(200);
         expect(resp.body).toEqual({ message: "Deleted" });
+    });
+
+    test("Responds with 404 if can't find item", async function () {
+        const resp = await request(app).patch(`/items/cookies`);
+        expect(resp.statusCode).toBe(404);
     });
 });
 // end
